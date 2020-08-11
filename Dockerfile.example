@@ -1,0 +1,3 @@
+FROM eu.gcr.io/fupas-main/transport:latest
+
+COPY ./public/ /src
