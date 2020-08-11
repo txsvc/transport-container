@@ -2,7 +2,7 @@
 
 IMAGE_TAG = 1.0.0
 IMAGE_NAME = transport
-REGISTRY = fupas-main
+REGISTRY = fupas-cr
 
 all: build_container push_container
 
