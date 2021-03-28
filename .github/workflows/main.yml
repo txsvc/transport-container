@@ -3,11 +3,11 @@ name: BuildAndPushContainer
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   IMAGE_NAME: transport
-  REGISTRY: fupas-cr
+  REGISTRY: txsvc
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
   

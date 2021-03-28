@@ -2,7 +2,7 @@
 
 IMAGE_TAG = 1.0.0
 IMAGE_NAME = transport
-REGISTRY = fupas-cr
+REGISTRY = txsvc
 
 all: build_container push_container
 
