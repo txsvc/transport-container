@@ -7,7 +7,7 @@ on:
 
 env:
   IMAGE_NAME: transport
-  REGISTRY: txsvc-306018
+  REGISTRY: ${{ secrets.REGISTRY }}
   REGISTRY_HOSTNAME: eu.gcr.io
   GITHUB_SHA: ${{ github.sha }}
   
