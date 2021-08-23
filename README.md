@@ -1,6 +1,10 @@
 # transport-container
 Container used to deploy static content
 
+## Deploy static content
 
-docker run --rm -v /opt/data/public/podops.dev:/dest eu.gcr.io/podops/podops.dev
+```shell
 
+docker run --rm -v /opt/data/public/<local dir>:/dest eu.gcr.io/txsvc-dev/transport:latest
+
+```
