@@ -12,7 +12,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   
 jobs:
-  build:
+  build_container:
     runs-on: ubuntu-latest
 
     steps:
