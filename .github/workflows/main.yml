@@ -5,10 +5,10 @@ on:
     branches: [ main ]
 
 env:
-  IMAGE_NAME: transport
-  IMAGE_VERSION: 1.0.0
-  REGISTRY: ${{ secrets.REGISTRY }}
-  REGISTRY_HOSTNAME: europe-docker.pkg.dev
+  CONTAINER_IMAGE: transport
+  CONTAINER_VERSION: 1.0.0
+  REPOSITORY: ${{ secrets.REPOSITORY }}
+  REPOSITORY_HOST: ${{ secrets.REPOSITORY_HOST }}
   GITHUB_SHA: ${{ github.sha }}
   
 jobs:
@@ -28,19 +28,19 @@ jobs:
     - name: setup gcloud SDK
       uses: google-github-actions/setup-gcloud@v1
 
-    - run: gcloud auth configure-docker europe-docker.pkg.dev
+    - run: gcloud auth configure-docker $REPOSITORY_HOST
 
     - name: build container
       run: |
-        docker build -t "$REGISTRY_HOSTNAME"/"$REGISTRY"/"$IMAGE_NAME":"$GITHUB_SHA" \
+        docker build -t "$REPOSITORY_HOST"/"$REPOSITORY"/"$CONTAINER_IMAGE":"$GITHUB_SHA" \
             --build-arg GITHUB_SHA="$GITHUB_SHA" \
             --build-arg GITHUB_REF="$GITHUB_REF" .
 
     # Push the docker image to Google Container Registry
     - name: push container
       run: |
-        docker push $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$GITHUB_SHA
-        docker tag $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$GITHUB_SHA $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:latest
-        docker tag $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$GITHUB_SHA $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$IMAGE_VERSION
-        docker push $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:latest
-        docker push $REGISTRY_HOSTNAME/$REGISTRY/$IMAGE_NAME:$IMAGE_VERSION
+        docker push $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:$GITHUB_SHA
+        docker tag $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:$GITHUB_SHA $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:latest
+        docker tag $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:$GITHUB_SHA $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:$CONTAINER_VERSION
+        docker push $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:latest
+        docker push $REPOSITORY_HOST/$REPOSITORY/$IMAGE_NAME:$CONTAINER_VERSION
